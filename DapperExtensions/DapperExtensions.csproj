@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>net40;net45;netstandard1.6</TargetFrameworks>
-    <Version>1.0.0</Version>
+    <Version>1.5.0</Version>
+    <AssemblyName>DapperExtensions2</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'!='net40'">
@@ -25,5 +26,15 @@
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <Authors>alfredking12</Authors>
+    <Description>Fork from tmsmith, support dotnet core</Description>
+    <ReleaseNotes>Fork from tmsmith, support dotnet core</ReleaseNotes>
+    <ProjectUrl>https://github.com/alfredking12/Dapper-Extensions</ProjectUrl>
+    <RepositoryUrl>https://github.com/alfredking12/Dapper-Extensions</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Tags>dapper;orm;dotnet core</Tags>
+  </PropertyGroup>
 
 </Project>
