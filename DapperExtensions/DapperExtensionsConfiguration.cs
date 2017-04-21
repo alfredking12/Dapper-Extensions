@@ -1,11 +1,10 @@
-﻿using System;
+﻿using DapperExtensions.Mapper;
+using DapperExtensions.Sql;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using DapperExtensions.Mapper;
-using DapperExtensions.Sql;
 
 namespace DapperExtensions
 {
@@ -91,14 +90,22 @@ namespace DapperExtensions
             {
                 Type[] types = a.GetTypes();
                 return (from type in types
+#if COREFX
+						let interfaceType = type.GetInterfaces().Where(x => x.Name == typeof(IClassMapper<>).Name && x.Namespace == typeof(IClassMapper<>).Namespace).FirstOrDefault()
+#else
                         let interfaceType = type.GetInterface(typeof(IClassMapper<>).FullName)
+#endif
                         where
                             interfaceType != null &&
                             interfaceType.GetGenericArguments()[0] == entityType
                         select type).SingleOrDefault();
             };
 
+#if COREFX
+            Type result = getType(entityType.GetTypeInfo().Assembly);
+#else
             Type result = getType(entityType.Assembly);
+#endif
             if (result != null)
             {
                 return result;
@@ -113,7 +120,11 @@ namespace DapperExtensions
                 }
             }
 
+#if COREFX
+            return getType(entityType.GetTypeInfo().Assembly);
+#else
             return getType(entityType.Assembly);
+#endif
         }
     }
 }

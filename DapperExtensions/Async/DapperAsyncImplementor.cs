@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿#if ASYNC
 using Dapper;
 using DapperExtensions.Mapper;
 using DapperExtensions.Sql;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DapperExtensions
 {
@@ -164,3 +165,4 @@ namespace DapperExtensions
         #endregion
     }
 }
+#endif

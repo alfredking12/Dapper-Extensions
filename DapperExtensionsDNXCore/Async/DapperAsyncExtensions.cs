@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if ASYNC
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
@@ -174,3 +175,4 @@ namespace DapperExtensions
         }
     }
 }
+#endif

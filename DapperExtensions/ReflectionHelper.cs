@@ -84,7 +84,11 @@ namespace DapperExtensions
         public static bool IsSimpleType(Type type)
         {
             Type actualType = type;
+#if COREFX
+            if (type.GetTypeInfo().IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+#else
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+#endif
             {
                 actualType = type.GetGenericArguments()[0];
             }

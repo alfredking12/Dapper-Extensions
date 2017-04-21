@@ -1,9 +1,9 @@
-﻿using System.Numerics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Numerics;
 using System.Reflection;
 
 namespace DapperExtensions.Mapper
@@ -89,7 +89,11 @@ namespace DapperExtensions.Mapper
             PropertyMap keyMap = null;
             foreach (var propertyInfo in type.GetProperties())
             {
+#if COREFX
+				if (Properties.Any(p => p.Name.Equals(propertyInfo.Name, StringComparison.CurrentCultureIgnoreCase)))
+#else
                 if (Properties.Any(p => p.Name.Equals(propertyInfo.Name, StringComparison.InvariantCultureIgnoreCase)))
+#endif
                 {
                     continue;
                 }
@@ -102,12 +106,19 @@ namespace DapperExtensions.Mapper
                 PropertyMap map = Map(propertyInfo);
                 if (!hasDefinedKey)
                 {
+#if COREFX
+					if (string.Equals(map.PropertyInfo.Name, "id", StringComparison.CurrentCultureIgnoreCase))
+#else
                     if (string.Equals(map.PropertyInfo.Name, "id", StringComparison.InvariantCultureIgnoreCase))
+#endif
                     {
                         keyMap = map;
                     }
-
+#if COREFX
+					if (keyMap == null && map.PropertyInfo.Name.EndsWith("id", StringComparison.CurrentCultureIgnoreCase))
+#else
                     if (keyMap == null && map.PropertyInfo.Name.EndsWith("id", true, CultureInfo.InvariantCulture))
+#endif
                     {
                         keyMap = map;
                     }
