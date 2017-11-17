@@ -1,13 +1,11 @@
-﻿using PropertyChanged;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DapperExtensions
 {
-    [AddINotifyPropertyChangedInterfaceAttribute]
     public class DapperEntity
     {
         private Dictionary<string, int> _changedPropertyNames = new Dictionary<string, int>();
-                                
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             if (!IsDapperSetter())
@@ -30,7 +28,7 @@ namespace DapperExtensions
         static bool IsDapperSetter()
         {
             //当前堆栈信息
-#if COREFX
+#if COREFX_1_6
             System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace(null, false);
 #else
             System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace();

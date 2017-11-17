@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.6</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard1.6;netstandard2.0</TargetFrameworks>
     <Version>1.6.0</Version>
     <AssemblyName>DapperExtensions2</AssemblyName>
   </PropertyGroup>
@@ -10,42 +10,35 @@
     <DefineConstants>ASYNC</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.6'">
-    <DefineConstants>COREFX</DefineConstants>
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <DefineConstants>COREFX;COREFX_2_0</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="FodyWeavers.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.6'">
+    <DefineConstants>COREFX;COREFX_1_6</DefineConstants>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.2" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.6'">
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
     <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'!='netstandard1.6'">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-    <PackageReference Include="PropertyChanged.Fody">
-      <Version>2.1.4</Version>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
-    <PackageReference Include="PropertyChanged.Fody">
-      <Version>2.1.4</Version>
-    </PackageReference>
     <PackageReference Include="System.Diagnostics.StackTrace">
       <Version>4.3.0</Version>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.6'">
+    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.StackTrace">
+      <Version>4.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -56,6 +49,7 @@
     <RepositoryUrl>https://github.com/alfredking12/Dapper-Extensions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Tags>dapper;orm;dotnet core</Tags>
+    <ContentTargetFolders>content</ContentTargetFolders>
   </PropertyGroup>
 
 </Project>
