@@ -1,7 +1,5 @@
 ﻿using PropertyChanged;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DapperExtensions
 {
@@ -12,14 +10,14 @@ namespace DapperExtensions
                                 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (!isDapperSetter())
+            if (!IsDapperSetter())
             {
                 if (!_changedPropertyNames.ContainsKey(propertyName))
                     _changedPropertyNames.Add(propertyName, 0);
             }
         }
 
-        internal void reset()
+        internal void Updated()
         {
             _changedPropertyNames.Clear();
         }
@@ -29,7 +27,7 @@ namespace DapperExtensions
             return _changedPropertyNames.ContainsKey(propertyName);
         }
 
-        static bool isDapperSetter()
+        static bool IsDapperSetter()
         {
             //当前堆栈信息
 #if COREFX

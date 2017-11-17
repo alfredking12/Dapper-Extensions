@@ -190,7 +190,11 @@ namespace DapperExtensions
                 dynamicParameters.Add(parameter.Key, parameter.Value);
             }
 
-            return connection.Execute(sql, dynamicParameters, transaction, commandTimeout, CommandType.Text) > 0;
+            var ret = connection.Execute(sql, dynamicParameters, transaction, commandTimeout, CommandType.Text) > 0;
+
+            entity.Updated();
+
+            return ret;
         }
 
         public bool Delete<T>(IDbConnection connection, T entity, IDbTransaction transaction, int? commandTimeout) where T : class
