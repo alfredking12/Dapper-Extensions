@@ -160,9 +160,9 @@ namespace DapperExtensions
         /// <summary>
         /// Executes an update query for the specified entity.
         /// </summary>
-        public static bool Update<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        public static bool Update<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, List<string> updatedColumns = null, int? commandTimeout = null) where T : class
         {
-            return Instance.Update<T>(connection, entity, transaction, commandTimeout);
+            return Instance.Update<T>(connection, entity, transaction, updatedColumns, commandTimeout);
         }
 
         /// <summary>

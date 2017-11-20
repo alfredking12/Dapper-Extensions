@@ -21,8 +21,8 @@ namespace DapperExtensions
         void Insert<T>(IEnumerable<T> entities, int? commandTimeout = null) where T : class;
         dynamic Insert<T>(T entity, IDbTransaction transaction, int? commandTimeout = null) where T : class;
         dynamic Insert<T>(T entity, int? commandTimeout = null) where T : class;
-        bool Update<T>(T entity, IDbTransaction transaction, int? commandTimeout = null) where T : class;
-        bool Update<T>(T entity, int? commandTimeout = null) where T : class;
+        bool Update<T>(T entity, IDbTransaction transaction, List<string> updatedColumns, int? commandTimeout = null) where T : class;
+        bool Update<T>(T entity, List<string> updatedColumns, int? commandTimeout = null) where T : class;
         bool Delete<T>(T entity, IDbTransaction transaction, int? commandTimeout = null) where T : class;
         bool Delete<T>(T entity, int? commandTimeout = null) where T : class;
         bool Delete<T>(object predicate, IDbTransaction transaction, int? commandTimeout = null) where T : class;
@@ -168,14 +168,14 @@ namespace DapperExtensions
             return _dapper.Insert<T>(Connection, entity, _transaction, commandTimeout);
         }
 
-        public bool Update<T>(T entity, IDbTransaction transaction, int? commandTimeout) where T : class
+        public bool Update<T>(T entity, IDbTransaction transaction, List<string> updatedColumns, int? commandTimeout) where T : class
         {
-            return _dapper.Update<T>(Connection, entity, transaction, commandTimeout);
+            return _dapper.Update<T>(Connection, entity, transaction, updatedColumns, commandTimeout);
         }
 
-        public bool Update<T>(T entity, int? commandTimeout) where T : class
+        public bool Update<T>(T entity, List<string> updatedColumns, int? commandTimeout) where T : class
         {
-            return _dapper.Update<T>(Connection, entity, _transaction, commandTimeout);
+            return _dapper.Update<T>(Connection, entity, _transaction, updatedColumns, commandTimeout);
         }
 
         public bool Delete<T>(T entity, IDbTransaction transaction, int? commandTimeout) where T : class

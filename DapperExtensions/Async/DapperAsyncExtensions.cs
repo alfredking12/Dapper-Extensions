@@ -1,4 +1,5 @@
 ﻿#if ASYNC
+
 using DapperExtensions.Mapper;
 using DapperExtensions.Sql;
 using System;

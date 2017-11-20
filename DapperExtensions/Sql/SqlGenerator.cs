@@ -16,7 +16,7 @@ namespace DapperExtensions.Sql
         string Count(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters);
 
         string Insert(IClassMapper classMap);
-        string Update(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters);
+        string Update(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters, List<string> updatedColumns);
         string Delete(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters);
 
         string IdentitySql(IClassMapper classMap);
@@ -166,7 +166,7 @@ namespace DapperExtensions.Sql
             return sql;
         }
 
-        public virtual string Update(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters)
+        public virtual string Update(IClassMapper classMap, IPredicate predicate, IDictionary<string, object> parameters, List<string> updatedColumns)
         {
             if (predicate == null)
             {
@@ -182,6 +182,11 @@ namespace DapperExtensions.Sql
             if (!columns.Any())
             {
                 throw new ArgumentException("No columns were mapped.");
+            }
+
+            if (updatedColumns != null && updatedColumns.Count > 0)
+            {
+                columns = columns.Where(p => updatedColumns.Exists( x => string.Compare(p.PropertyInfo.Name, x, true) == 0));
             }
 
             var setSql =
