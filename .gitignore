@@ -15,4 +15,4 @@ StyleCop.*
 
 # Nuget
 packages
-/.vs/DapperExtensions/v15/Server/sqlite3
+/.vs
