@@ -15,3 +15,6 @@ StyleCop.*
 
 # Nuget
 packages
+/.vs/DapperExtensions/v15/Server/sqlite3/storage.ide
+/.vs/DapperExtensions/v15/Server/sqlite3/db.lock
+/.vs/DapperExtensions/v15/Server/sqlite3
